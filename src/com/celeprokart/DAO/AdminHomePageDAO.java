@@ -31,6 +31,33 @@ public class AdminHomePageDAO {
 		
 		return listOfCharities;	
 	}
+	
+	public static ArrayList<ProductBean> searchCelebrities()
+	{
+		ArrayList<ProductBean> listProducts=new ArrayList<>();
+		try{  
+			Connection con=ConnectionProvider.getCon();  
+			              
+			PreparedStatement ps=con.prepareStatement("select * from Product"); 		             
+			ResultSet rs=ps.executeQuery(); 
+			while (rs.next()) 
+			{
+				String name = rs.getString("product_name");
+				ProductBean bean = new ProductBean();
+				bean.setProduct_name(name);
+				bean.setImage(rs.getString("image"));
+				bean.setProduct_id(rs.getInt("product_id"));
+				listProducts.add(bean);
+			}
+			
+			}catch(Exception e){
+				
+				e.printStackTrace();
+			}  	
+		
+		return listProducts;	
+	}
+	
 	public static ArrayList<SignUpCelebrityBean> listCelebrities()
 	{
 		ArrayList<SignUpCelebrityBean> listOfCelebrities=new ArrayList<>();

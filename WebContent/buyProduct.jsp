@@ -12,7 +12,7 @@
 <body>
 <%
 
-String i = request.getParameter("productID");
+String i = request.getParameter("celebrityID");
 System.out.println(i + "inside jsp");
 
 %>

@@ -19,7 +19,11 @@
 </head>
 <body>
   <%  
-ArrayList<ProductBean> listOfProducts=AdminHomePageDAO.listProducts(); 
+  
+  String i = request.getParameter("productID");
+  System.out.println(i + "inside jsp");
+  
+ArrayList<ProductBean> listOfProducts=AdminHomePageDAO.searchCelebrities(); 
 request.setAttribute("products", listOfProducts);
 
 ArrayList<SignUpCelebrityBean> listOfCelebrities = AdminHomePageDAO.listCelebrities();
@@ -78,7 +82,6 @@ request.setAttribute("celebrities", listOfCelebrities);
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav ">
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="SellOrDonate.jsp"> Sell/Donate </a></li>
       </ul>
       <ul class="nav navbar-nav ">
         <li class="active">
@@ -88,7 +91,8 @@ request.setAttribute("celebrities", listOfCelebrities);
  	<option> <c:out value="${celebrity.emailID}"/></option>
  	<input type="hidden" name="celebrityID" value="<c:out value="${celebrity.id}"/>">
     </c:forEach>
-    </select>  
+    </select>
+    
     <input type="submit" name="submit" value="Search">
 </form>    
         </li>
