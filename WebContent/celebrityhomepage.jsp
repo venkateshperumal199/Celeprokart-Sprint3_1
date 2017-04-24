@@ -83,7 +83,7 @@ request.setAttribute("celebrities", listOfCelebrities);
       <ul class="nav navbar-nav ">
         <li class="active">
 <form action="searchCelebrity.jsp" method="post">
-    <select name="product" class="glyphicon glyphicon-user" required>
+    <select name="celebrityEmailID" class="glyphicon glyphicon-user" required>
 	<c:forEach var="celebrity" items="${celebrities}">
  	<option> <c:out value="${celebrity.emailID}"/></option>
  	<input type="hidden" name="celebrityID" value="<c:out value="${celebrity.id}"/>">

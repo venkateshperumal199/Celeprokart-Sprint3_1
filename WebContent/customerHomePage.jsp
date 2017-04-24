@@ -81,16 +81,15 @@ request.setAttribute("celebrities", listOfCelebrities);
       </ul>
       <ul class="nav navbar-nav ">
         <li class="active">
-
-    <select name="product" class="glyphicon glyphicon-user" required>
+<form action="searchCelebrity.jsp" method="post">
+    <select name="celebrityEmailID" class="glyphicon glyphicon-user" required>
 	<c:forEach var="celebrity" items="${celebrities}">
  	<option> <c:out value="${celebrity.emailID}"/></option>
  	<input type="hidden" name="celebrityID" value="<c:out value="${celebrity.id}"/>">
     </c:forEach>
-    </select>
-    
+    </select>  
     <input type="submit" name="submit" value="Search">
-    
+</form>    
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

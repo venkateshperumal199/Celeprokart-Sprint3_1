@@ -18,12 +18,9 @@
 <title>CELEPROKART</title>
 </head>
 <body>
-  <%  
-  
-  String i = request.getParameter("productID");
-  System.out.println(i + "inside jsp");
-  
-ArrayList<ProductBean> listOfProducts=AdminHomePageDAO.searchCelebrities(); 
+ <%  
+ 
+ArrayList<ProductBean> listOfProducts=AdminHomePageDAO.searchCelebrities(request.getParameter("celebrityEmailID").toString()); 
 request.setAttribute("products", listOfProducts);
 
 ArrayList<SignUpCelebrityBean> listOfCelebrities = AdminHomePageDAO.listCelebrities();

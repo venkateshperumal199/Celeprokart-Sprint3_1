@@ -32,13 +32,14 @@ public class AdminHomePageDAO {
 		return listOfCharities;	
 	}
 	
-	public static ArrayList<ProductBean> searchCelebrities()
+	public static ArrayList<ProductBean> searchCelebrities(String nameCeleb)
 	{
 		ArrayList<ProductBean> listProducts=new ArrayList<>();
 		try{  
 			Connection con=ConnectionProvider.getCon();  
 			              
-			PreparedStatement ps=con.prepareStatement("select * from Product"); 		             
+			PreparedStatement ps=con.prepareStatement("select * from Product where celebrityname = ?"); 
+			ps.setString(1, nameCeleb);
 			ResultSet rs=ps.executeQuery(); 
 			while (rs.next()) 
 			{

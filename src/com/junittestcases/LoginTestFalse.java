@@ -18,7 +18,7 @@ public class LoginTestFalse {
 			//LoginDao.con.setAutoCommit(false);
 			bean.setEmail("Anusha");
 			bean.setPass("");
-			assertTrue(LoginDao.validate(bean));
+			assertTrue(loginDao.validate(bean));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			

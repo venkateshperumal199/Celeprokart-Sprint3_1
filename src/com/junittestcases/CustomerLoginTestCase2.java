@@ -17,7 +17,7 @@ public class CustomerLoginTestCase2 {
 			//LoginDao.con.setAutoCommit(false);
 			bean.setEmail("anushareddy.2912@gmail.com");
 			bean.setPass("Anusha29");
-			assertTrue(LoginDao.validateCust(bean));
+			assertTrue(loginDao.validateCust(bean));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			
