@@ -1,31 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="com.celeprokart.bean.*"%>
 <%@page import="com.celeprokart.DAO.*"%>
+<%@page import="com.celeprokart.bean.*"%>
 <%@ page import="java.util.Collection,
                  java.util.ArrayList"%>
 <!DOCTYPE html>
-
 <html>
 <head>
-  <title>CELEPROKART</title>
-  <meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript"></script>
+  
+<title>CELEPROKART</title>
 </head>
-
 <body>
-
-<%  
+  <%  
 ArrayList<ProductBean> listOfProducts=AdminHomePageDAO.listProducts(); 
 request.setAttribute("products", listOfProducts);
 
-  %>
+ArrayList<SignUpCelebrityBean> listOfCelebrities = AdminHomePageDAO.listCelebrities();
+request.setAttribute("celebrities", listOfCelebrities);
 
+  %>
+  <div id="fullscreen_bg" class="fullscreen_bg"></div>
   <div class="container-fluid text-center">
   <div class="row">
   <div class="col-md-12" style= "height:auto">
@@ -47,7 +48,7 @@ request.setAttribute("products", listOfProducts);
   <img src="https://ecenter.ee.doe.gov/EM/SSPM/PublishingImages/EGL-EG.png?Mobile=1&Source=%2FEM%2FSSPM%2F_layouts%2Fmobile%2Fview.aspx%3FList%3Deb6b70b3-2c68-4ea8-99e6-e5885bd5d726%26View%3D4dc8b320-4960-4327-aa61-b6e8dcd30f72%26ViewMode%3DDetail%26CurrentPage%3D1" alt="naddy" class="image-responsive" height="500px">
   </div>
    <div class="item">
-  <img src="http://www.spacenframes.com/images/slide/4.jpg" alt="naddy" class="image-responsive" height="500px">
+  <img src="http://www.spacenframes.com/images/slide/4.jpg" alt="naddy" class="image-responsive" height="500px"/>
   </div>
   </div>
   <a class="left carousel-control" href="#my-slider" role="button" data-slide="prev">
@@ -77,41 +78,49 @@ request.setAttribute("products", listOfProducts);
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav ">
         <li class="active"><a href="#">Home</a></li>
+      </ul>
+      <ul class="nav navbar-nav ">
         <li class="active">
-     <form action="searchCriteria" method="POST">   
-       <select name="celebrity" class="glyphicon glyphicon-user" required>
-	<c:forEach var="product" items="${products}">
- 	<option> <c:out value="${product.celebrity}"/></option>
+
+    <select name="product" class="glyphicon glyphicon-user" required>
+	<c:forEach var="celebrity" items="${celebrities}">
+ 	<option> <c:out value="${celebrity.emailID}"/></option>
+ 	<input type="hidden" name="celebrityID" value="<c:out value="${celebrity.id}"/>">
     </c:forEach>
     </select>
     
-    <input type="submit" name="submit" value="submit">
+    <input type="submit" name="submit" value="Search">
     
-    </form>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-       <li><a href="Logout.jsp"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
+        <li><a href="Logout.jsp"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
       </ul>
     </div>
   </div>
 </nav>
-
 <c:forEach var="product" items="${products}">
+
+<form action="buyProduct.jsp" name="buyProduct" method="POST">
+
 <div class="container">    
   <div class="row">
     <div class="col-md-4">
       <div class="panel panel-primary">
+        
         <div class="panel-heading"><c:out value="${product.product_name}"/></div>
+        <div class="panel-heading"><input type="hidden" name="productID" value="<c:out value="${product.product_id}"/>"></div>
         <div class="panel-body"><img src="<c:out value="${product.image}"/>" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer"><c:out value="${product.price}"/></div>
+        <div class="panel-footer"><c:out value="${product.price}"/></div><br/><br/>
+        <div class="panel-footer"> <input type="submit" name="submit" value="Buy Product"></div>
       </div>
     </div>
    </div>
    </div> 
-   </c:forEach>
-
+  
+</form>
+ </c:forEach>
 <footer class="container-fluid text-center">
   <p>Online Store Copyright</p>  
   <form class="form-inline">Get deals:
@@ -119,6 +128,8 @@ request.setAttribute("products", listOfProducts);
     <button type="button" class="btn btn-danger">Sign Up</button>
   </form>
 </footer>
+
+
 </body>
 
 <style type="text/css">
@@ -211,6 +222,5 @@ font-family:courier ;
     }
   
 </style>
-
 
 </html>

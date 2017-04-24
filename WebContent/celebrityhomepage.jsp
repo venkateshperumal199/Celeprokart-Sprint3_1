@@ -22,6 +22,9 @@
 ArrayList<ProductBean> listOfProducts=AdminHomePageDAO.listProducts(); 
 request.setAttribute("products", listOfProducts);
 
+ArrayList<SignUpCelebrityBean> listOfCelebrities = AdminHomePageDAO.listCelebrities();
+request.setAttribute("celebrities", listOfCelebrities);
+
   %>
   <div id="fullscreen_bg" class="fullscreen_bg"></div>
   <div class="container-fluid text-center">
@@ -81,8 +84,9 @@ request.setAttribute("products", listOfProducts);
         <li class="active">
 
     <select name="product" class="glyphicon glyphicon-user" required>
-	<c:forEach var="product" items="${products}">
- 	<option> <c:out value="${product.celebrity}"/></option>
+	<c:forEach var="celebrity" items="${celebrities}">
+ 	<option> <c:out value="${celebrity.emailID}"/></option>
+ 	<input type="hidden" name="celebrityID" value="<c:out value="${celebrity.id}"/>">
     </c:forEach>
     </select>
     
@@ -99,7 +103,7 @@ request.setAttribute("products", listOfProducts);
 </nav>
 <c:forEach var="product" items="${products}">
 
-<form action="buyProduct.jsp" method="POST">
+<form action="buyProduct.jsp" name="buyProduct" method="POST">
 
 <div class="container">    
   <div class="row">

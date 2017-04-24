@@ -44,7 +44,9 @@ public class AdminHomePageDAO {
 				String name = rs.getString("email_ID");
 				SignUpCelebrityBean bean = new SignUpCelebrityBean();
 				bean.setEmailID(name);
-				System.out.println(bean.getEmailID());
+				bean.setId(rs.getInt("ID"));
+				
+				System.out.println("id is" + bean.getId());
 				
 				listOfCelebrities.add(bean);
 			}
