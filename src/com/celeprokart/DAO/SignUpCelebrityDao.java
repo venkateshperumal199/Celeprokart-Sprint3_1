@@ -20,25 +20,15 @@ import javax.mail.internet.MimeMessage;
 
 public class SignUpCelebrityDao {
 	
-	public Connection con;
-	public ConnectionProvider connectionProvider = new ConnectionProvider();
-	
-	public SignUpCelebrityDao(ConnectionProvider connectionProvider) {
-		super();
-		this.connectionProvider = connectionProvider;
-	}
-
-	public SignUpCelebrityDao() {
-		super();
-	}
-
-	public boolean addCelebrity(SignUpCelebrityBean bean)
+	static int count;
+	public static Connection con;
+	public static boolean addCelebrity(SignUpCelebrityBean bean)
 	{
 		
 		boolean status=false;  
 		
 		try{ 
-				con=connectionProvider.getCon();
+				con=ConnectionProvider.getCon();
 			if(con!=null)
 				System.out.println("connected");
 		
@@ -83,6 +73,7 @@ public class SignUpCelebrityDao {
 		}
 		else if(bean.getRole().equals("Customer"))
 		{
+			count++;
 			if(con!=null)
 				System.out.println("connected");
 			String query = "INSERT INTO Customer ("
@@ -113,7 +104,7 @@ public class SignUpCelebrityDao {
 			else
 				status = false;
 			String to = bean.getEmailID();
-			sendEmail(to, "Account is created", "Thank you for creating the account. Your ID is");
+			sendEmail(to, "Account is created", "Thank you for creating the account. Your ID is"+count);
 			System.out.println(status);
 			}
 		

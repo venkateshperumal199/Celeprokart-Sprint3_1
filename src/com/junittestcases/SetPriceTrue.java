@@ -12,16 +12,15 @@ public class SetPriceTrue {
 	@Test
 	public void test() {
 		ProductBean bean = new ProductBean();
-		ProductDAO productDAO = new ProductDAO();
 		try{
 			
 			
 			bean.setPrice("80");
 			bean.setProduct_name("Product1");
-			assertEquals(0, productDAO.updateProduct(bean));
+			assertEquals(0, ProductDAO.updateProduct(bean));
 
-			productDAO.con.rollback();
-			productDAO.con.close();
+			ProductDAO.con.rollback();
+			ProductDAO.con.close();
 			
 		}catch(Exception e)
 		{

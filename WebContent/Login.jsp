@@ -13,14 +13,12 @@
 <body>
 <%  
 String profile_msg=(String)request.getParameter("email");  
-if(profile_msg!=null)
-{  
-	out.print(profile_msg);  
+if(profile_msg!=null){  
+out.print(profile_msg);  
 } 
 String login_msg=(String)request.getParameter("pass");  
-if(login_msg!=null)
-{  
-	out.print(login_msg);
+if(login_msg!=null){  
+out.print(login_msg);  
 } 
  %>  
  <script>
@@ -52,7 +50,7 @@ if(login_msg!=null)
 			<input type="text" class="form-control" name="email" placeholder="Emailid" required autofocus><br></br>
                 <input type="password" class="form-control" name="pass" placeholder="Password" required autofocus><br></br>
                 <input class="btn btn-lg btn-primary btn-block" type="submit" value="login"/> <br/><br/>	
-
+		
                 <a href="forgotPassword.jsp" class="need-help"><font color="White">Forgotpassword? </font></a><span class="clearfix"></span>
                  <font color="Aqua">Don't have an account?</font> <a href="SignUp.jsp"><font color="White">Sign up here</font></a>
                 </form>

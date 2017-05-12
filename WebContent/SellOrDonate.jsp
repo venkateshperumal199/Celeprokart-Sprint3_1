@@ -19,8 +19,8 @@
 <script src="js/actions.js"></script>
 </head>
 <%
-AdminHomePageDAO adminHomePageDAO = new AdminHomePageDAO();
-ArrayList<AddCharityBean> listOfCharities=adminHomePageDAO.listCharity();  
+
+ArrayList<AddCharityBean> listOfCharities=AdminHomePageDAO.listCharity();  
 request.setAttribute("charities", listOfCharities);
 
 %>

@@ -12,18 +12,10 @@
 </head>
 <body>
 <%  
-
-ForgotPasswordDAO forgotPasswordDAO = new ForgotPasswordDAO();
-
-String name = request.getParameter("email");
-
-boolean status=forgotPasswordDAO.forgotPassword(name);  
+boolean status=ForgotPasswordDAO.forgotPassword(obj);  
 if(status){  
 out.println("Email is sent. Please check your password in the email");  
-
-%>  
-<jsp:include page="index.jsp"></jsp:include>  
-<% 
+session.setAttribute("session","TRUE");  
 }  
 else  
 {  

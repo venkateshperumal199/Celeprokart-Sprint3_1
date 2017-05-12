@@ -6,16 +6,13 @@ import com.celeprokart.bean.*;
 public class LoginDao {
 
 	public Connection con;
-	public ConnectionProvider connectionProvider = new ConnectionProvider();
-	
-	public  boolean validate(LoginBean bean)
-	{  
+	public  boolean validate(LoginBean bean){  
 		boolean status=false;  
 		AdminBean adminBean = new AdminBean();
 		try{  
-			
-			con = connectionProvider.getCon();
-			
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","SSDI","SSDI_29");  
+			              
 			PreparedStatement ps=con.prepareStatement(  
 			    "select * from Admin where USERNAME=? and PASSWORD=?"); 		  
 			ps.setString(1,bean.getEmail());  
@@ -32,7 +29,6 @@ public class LoginDao {
 				adminBean.setUserName(rs.getString("username"));
 				adminBean.setId(rs.getInt("id"));
 				bean.setId(adminBean.getId());
-				bean.setName(adminBean.getUserName());
 				System.out.println("ID is "+rs.getInt("id"));
 	
 			}catch(Exception e){}  
@@ -44,53 +40,31 @@ public class LoginDao {
 		boolean status=false; 
 		SignUpCelebrityBean celebrityBean = new SignUpCelebrityBean();
 		try{  
-			con = connectionProvider.getCon();
+			con=ConnectionProvider.getCon();  
+			              
 			PreparedStatement ps=con.prepareStatement(  
 			    "select * from Celebrity where EMAIL_ID=? and PASSWORD=?"); 		  
 			ps.setString(1,bean.getEmail());  
 			ps.setString(2, bean.getPass());               
 			ResultSet rs=ps.executeQuery();  
-			
-			while(rs.next())
-			{
-			celebrityBean.setAddress(rs.getString("address"));
-			
-			System.out.println("address is " + celebrityBean.getAddress());
-			
-			celebrityBean.setEmailID(rs.getString("email_ID"));
-			
-			System.out.println("address is " + celebrityBean.getEmailID());
-			celebrityBean.setFlag(rs.getString("flag"));
-			
-			System.out.println("address is " + celebrityBean.getFlag());
-			celebrityBean.setId(rs.getInt("id"));
-			
-			System.out.println("address is " + celebrityBean.getId());
-			celebrityBean.setName(rs.getString("name"));
-			
-			System.out.println("address is " + celebrityBean.getName());
-			celebrityBean.setPassword(rs.getString("password"));
-			System.out.println("address is " + celebrityBean.getPassword());
-			
-			bean.setId(rs.getInt("id"));
-			bean.setName(celebrityBean.getName());
-			
+			status=rs.next();
 			System.out.println(status);
 			System.out.println(bean.getEmail());
 			System.out.println(bean.getPass());
 			
+			celebrityBean.setAddress(rs.getString("address"));
+			celebrityBean.setEmailID(rs.getString("email_ID"));
+			celebrityBean.setFlag(rs.getString("flag"));
+			celebrityBean.setId(rs.getInt("id"));
+			celebrityBean.setName(rs.getString("name"));
+			celebrityBean.setPassword(rs.getString("password"));
+			celebrityBean.setPhoneNo(rs.getInt("phone_number"));
+			celebrityBean.setRole(rs.getString("role"));
+			celebrityBean.setZipcode(rs.getInt("zipcode"));
+			
 			bean.setId(rs.getInt("id"));
-			System.out.println("Celebrity logged in is" + bean.getName() + "       ");
 			
-			status = true;
-			
-			}
-//			bean.setId(rs.getInt("id"));
-//			bean.setName(celebrityBean.getName());
-//			
-//			System.out.println("Celebrity logged in is" + rs.getString("name"));
-//			System.out.println("Celebrity logged in is" + rs.getString("email_ID"));
-
+	
 			}catch(Exception e){}  
 			  
 			return status;  
@@ -100,7 +74,7 @@ public class LoginDao {
 		boolean status=false;
 		CustomerBean customerBean = new CustomerBean();
 		try{  
-			con = connectionProvider.getCon();
+			con=ConnectionProvider.getCon();  
 			              
 			PreparedStatement ps=con.prepareStatement(  
 			    "select * from Customer where EMAIL_ID=? and PASSWORD=?"); 		  
@@ -122,7 +96,6 @@ public class LoginDao {
 			customerBean.setZipcode(rs.getInt("zipcode"));
 			
 			bean.setId(rs.getInt("id"));
-			bean.setName(customerBean.getName());
 			
 			}catch(Exception e){
 				

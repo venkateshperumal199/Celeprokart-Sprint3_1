@@ -10,21 +10,7 @@ public class ProductBean {
 	String charity;
 	String celebrity;
 	int product_id;
-	String flag;
-	String celebName;
 
-	public String getCelebName() {
-		return celebName;
-	}
-	public void setCelebName(String celebName) {
-		this.celebName = celebName;
-	}
-	public String getFlag() {
-		return flag;
-	}
-	public void setFlag(String flag) {
-		this.flag = flag;
-	}
 	public int getProduct_id() {
 		return product_id;
 	}

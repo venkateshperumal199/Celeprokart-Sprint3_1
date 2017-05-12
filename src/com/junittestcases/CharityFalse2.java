@@ -21,9 +21,9 @@ public class CharityFalse2 {
 
 		bean.setZipcode(28262);
 		
-		assertTrue(dao.addCharity(bean));
-		dao.con.rollback();
-		dao.con.close();
+		assertTrue(AddCharityDAO.addCharity(bean));
+		AddCharityDAO.con.rollback();
+		AddCharityDAO.con.close();
 
 	}
 

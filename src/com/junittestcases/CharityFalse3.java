@@ -23,10 +23,10 @@ public class CharityFalse3 {
 		bean.setPhoneNo(9803392688L);
 		bean.setZipcode(28262);
 		
-		assertTrue(dao.addCharity(bean));
+		assertTrue(AddCharityDAO.addCharity(bean));
 		
-		dao.con.rollback();
-		dao.con.close();
+		AddCharityDAO.con.rollback();
+		AddCharityDAO.con.close();
 
 	}
 

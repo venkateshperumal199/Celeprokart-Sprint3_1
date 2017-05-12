@@ -18,24 +18,14 @@ import javax.mail.internet.MimeMessage;
 import com.celeprokart.bean.*;
 
 public class ProductDAO {
-	int count;
-	public Connection con;
-	public ConnectionProvider connectionProvider = new ConnectionProvider();
-	
-	public ProductDAO(ConnectionProvider connectionProvider) {
-		super();
-		this.connectionProvider = connectionProvider;
-	}
-
-	public ProductDAO() {
-		super();
-	}
-
-	public int addProduct(ProductBean bean)
+	static int count;
+	public static Connection con;
+	public static int addProduct(ProductBean bean)
 	{
+
 		int rs=0;
 		try{ 
-			con=connectionProvider.getCon();
+				con=ConnectionProvider.getCon();
 			if(con!=null)
 				System.out.println("connected");
 
@@ -46,10 +36,8 @@ public class ProductDAO {
 			    + " product_name,"
 			    + " image,"
 			    + " price,"
-			    + " celebrityname,"
-			    + " flag,"
-			    + " celebName ) VALUES ("
-			    + "?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			    + " celebrityname ) VALUES ("
+			    + "?, ?, ?, ?, ?, ?, ?)";
 		              
 		PreparedStatement ps=con.prepareStatement(query);
 		
@@ -89,117 +77,62 @@ public class ProductDAO {
 				ps.setString(7, bean.getCelebrity());
 				System.out.println("Value of rs" + rs);
 		}
-		
-		ps.setString(8, "N");
-		
-		if(bean.getCelebrity() != null)
-		{
-				ps.setString(9, bean.getCelebName());
-				System.out.println("Value of rs" + rs);
-		}
-		
 		rs=ps.executeUpdate(); 
+		System.out.println(rs);
 		
 		}catch(Exception e){}  
 		  
 		return rs;  
 	}
 
-	public boolean buyProduct(String id)
-	{
-		
-		boolean status = false;
-		int i = Integer.parseInt(id);
-		try{ 
-			con = connectionProvider.getCon();
-			if(con!=null)
-				System.out.println("connected");
-
-		String query = "delete from products where product_id = ?";
-		              
-		PreparedStatement ps=con.prepareStatement(query);
-			if(i != 0)
-			{
-				ps.setInt(1, i);
-			}
-		int x=ps.executeUpdate();
-		
-		if(x != 0)
-		{
-			status = true;
-		}
-		
-		ps.close();	
-			
-		}catch(Exception e){}  
-		  
-		return status;  
-	}
 	
-	public int updateProduct(ProductBean bean)
+	public static int updateProduct(ProductBean bean)
 	{
 
 		int rs=0;
 		try{ 
-			con = connectionProvider.getCon();
+				con=ConnectionProvider.getCon();
 			if(con!=null)
 				System.out.println("connected");
 
-		String query = "UPDATE products SET price = ?, flag = ? where product_name = ?";
+//			StringBuilder queryBuilder =  new  StringBuilder(" Select * from ");
+//			queryBuilder.append("products");
+//			queryBuilder.append(" where ");
+//			queryBuilder.append("price");
+//			queryBuilder.append("LIKE '%\"' || ? || '\"%'");
+//			
+//			PreparedStatement psNew = con.prepareStatement(queryBuilder.toString());
+//			psNew.setString(1, bean.getPrice());
+//			ResultSet rsNew=psNew.executeQuery(); 
+//			System.out.println("outside while");
+//			while (rsNew.next()) 
+//			{
+//				System.out.println(rsNew.getString("product_name"));
+//
+//			}	
+			
+		String query = "UPDATE products SET price = ? where product_name = ?";
 		              
 		PreparedStatement ps=con.prepareStatement(query);
 
 		if(bean.getPrice() != null)
 			ps.setString(1, bean.getPrice());
-		
-			ps.setString(2, "Y");
-		
-		if(bean.getProduct_name() != null)
-			ps.setString(3, bean.getProduct_name());
+		else if(bean.getProduct_name() != null)
+			ps.setString(2, "Product1");
+		System.out.println(bean.getPrice());
+		System.out.println(bean.getProduct_name());
+		System.out.println(ps);
 		rs=ps.executeUpdate(); 
 		ps.close();	
+		System.out.println(rs);
 		
+		//sendEmail(to, "Account is created", "Thank you for creating the account.");
+	
 		}catch(Exception e){}  
 		  
 		return rs;  
 	}
 
-	public ProductBean searchProduct(String product_id)
-	{
-		ProductBean bean=new ProductBean();
-		
-		int id = Integer.parseInt(product_id);
-		
-		try{  	
-			bean = new ProductBean();
-			con = connectionProvider.getCon();
-			
-			PreparedStatement ps=con.prepareStatement(  
-			    "select * from Products where Product_id=?"); 		  
-			ps.setInt(1,id);  
-			      
-			ResultSet rs=ps.executeQuery();  
-			
-			while(rs.next())
-			{
-				bean.setProduct_id(id);
-				bean.setCategory(rs.getString("category"));
-				bean.setCelebrity(rs.getString("celebrityname"));
-				bean.setCharity(rs.getString("charity"));
-				bean.setImage(rs.getString("image"));
-				bean.setProduct_name(rs.getString("product_name"));
-				bean.setPrice(rs.getString("price"));
-				bean.setFlag(rs.getString("flag"));
-				
-			}
-			
-			System.out.println("ID is "+rs.getInt("id"));
-	
-			}catch(Exception e){}  		
-		
-		return bean;
-	}
-	
 	
 public static void sendEmail(String toAddress,String subject, String message) throws AddressException,
 	MessagingException {

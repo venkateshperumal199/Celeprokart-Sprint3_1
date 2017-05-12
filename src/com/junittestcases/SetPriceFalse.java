@@ -13,14 +13,13 @@ public class SetPriceFalse {
 	public void test() {
 		
 		ProductBean bean = new ProductBean();
-		ProductDAO productDAO = new ProductDAO();
 		try{
 			
 			bean.setProduct_name("Product1");
-			assertEquals(1, productDAO.updateProduct(bean));
+			assertEquals(1, ProductDAO.updateProduct(bean));
 
-			productDAO.con.rollback();
-			productDAO.con.close();
+			ProductDAO.con.rollback();
+			ProductDAO.con.close();
 			
 		}catch(Exception e)
 		{

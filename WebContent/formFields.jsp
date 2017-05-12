@@ -1,63 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="com.celeprokart.bean.LoginBean"%>
-<%@page import="com.celeprokart.DAO.*"%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<title>Payment</title>
+<title>Enter Product Details</title>
 </head>
 <body>
-
 <div id="fullscreen_bg" class="fullscreen_bg"></div>
  <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-        <h1 class="text-center login-title">Payment successfully done!!!!!!</h1><br><br><br>
-        
-     <%
- 	LoginBean beanLogin = (LoginBean)session.getAttribute("session");
-    LoginDao loginDao = new LoginDao();
-    boolean status_celeb = loginDao.validateCeleb(beanLogin); 
-     if(status_celeb)
-     {
-    	 %>
-    	 
-    <a href="celebrityhomepage.jsp">Continue Shopping!!</a>
-    
-    	 <%
-     }
-     else
-     {
-    	if(loginDao.validateCust(beanLogin))
-    	{
-    	 
-    	 %>
-    	 
-    	  <a href="customerHomePage.jsp">Continue Shopping!!</a>
-    	 
-    	 <%
-    	 
-    	}
-     }
-     %>   
+       <form ACTION="uploadFileDetails.jsp" METHOD=POST>
+				<h1 class="form-signin-heading text-muted"  align="center">Add Product</h1>
+				<input type="text" class="form-control"  name="ProductName" placeholder="ProductName" autofocus/><br/><br/> 
+				<input type="text" class="form-control" name="price" placeholder="Price" autofocus/><br/><br/>   
+				<select name="Category" id="selectboxid_category" class="form-control" required>
+					<option value="Sports">Sports</option>
+					<option value="Electronic Gadgets">Electronic Gadgets</option>
+					<option value="Clothes">Clothes</option>
+					<option value="Accessories">Accessories</option>
+					<option value="Musical Instruments">Musical Instruments</option>
+					<option value="Handmade">Hand made</option>
+				</select><br><br/>
+				<select name="SellOrDonate" id="selectboxid_sellDonate" class="form-control" required>
+					<option value="Sell">Sell</option>
+					<option value="Donate">Donate</option>
+				</select><br></br>
+				<select name="Charity" id="selectboxid_Charity" class="form-control" required>
+					<option value="Charity1">Charity1</option>
+					<option value="Charity2">Charity2</option>
+				</select><br></br>		
+				<input type="submit" class="btn btn-lg btn-primary btn-block" value="Continue"/> <br></br>
+		</form>  
+		</div>
         </div>
-       </div>
-        </div>
-
+    </div>
 </body>
-
-<style type="text/css">
-
- body {
-    padding-top: 40px;
-    padding-bottom: 0px;
-    background-color: #eee;
+<style>
+  body{
+  background-image:url("http://72gpf1za5iq428ekh3r7qjc1.wpengine.netdna-cdn.com/wp-content/uploads/2015/04/ecommerce.jpg");
+  background-repeat:no-repeat;
+  background-size:cover;
   }
   h1 {
     color: gold;
@@ -66,17 +55,6 @@ h2{
 color: green;
 font-family:courier ;
 }
-  .fullscreen_bg {
-  background-image: url('http://72gpf1za5iq428ekh3r7qjc1.wpengine.netdna-cdn.com/wp-content/uploads/2015/04/ecommerce.jpg');
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-size: cover;
-    background-position: 80% 80%;
-    
-  }
   .form-Login {
     max-width: 1000px;
     padding: 15px;
@@ -122,25 +100,6 @@ font-family:courier ;
     text-align: center;
     text-shadow: 0 2px 2px rgba(0,0,0,0.5);
   }
-   .navbar {
-      margin-bottom: 50px;
-      border-radius: 0;
-      
-    }
-    
-    /* Remove the jumbotron's default bottom margin */ 
-   .carousel img{
-   width:100%;
-   height:300px;
-   } 
-    
-   
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color:red;
-      padding: 25px;
-    }
-  
-</style>
+  </style>
 
 </html>

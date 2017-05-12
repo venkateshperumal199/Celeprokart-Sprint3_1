@@ -11,10 +11,7 @@
 </head>
 <body>
 <%  
-
-SignUpCelebrityDao signUpCelebrityDao = new SignUpCelebrityDao();
-
-boolean status = signUpCelebrityDao.addCelebrity(obj);  
+boolean status = SignUpCelebrityDao.addCelebrity(obj);  
 if(status){  
 out.println("You r successfully Registered");  
 session.setAttribute("session","TRUE");  

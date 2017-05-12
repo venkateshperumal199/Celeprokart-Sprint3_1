@@ -19,18 +19,10 @@
 </head>
 <body>
   <%  
-  
-AdminHomePageDAO adminHomePageDAO = new AdminHomePageDAO();
-  
-  LoginBean beanLogin = (LoginBean)session.getAttribute("session");
-  beanLogin.getEmail();
-
-  
-ArrayList<ProductBean> listOfProducts=adminHomePageDAO.listVerifiedProducts(beanLogin.getEmail()); 
+ArrayList<ProductBean> listOfProducts=AdminHomePageDAO.listProducts(); 
 request.setAttribute("products", listOfProducts);
 
-
-ArrayList<SignUpCelebrityBean> listOfCelebrities = adminHomePageDAO.listCelebrities(beanLogin.getEmail());
+ArrayList<SignUpCelebrityBean> listOfCelebrities = AdminHomePageDAO.listCelebrities();
 request.setAttribute("celebrities", listOfCelebrities);
 
   %>
@@ -72,6 +64,7 @@ request.setAttribute("celebrities", listOfCelebrities);
 </div>
 </div>
 
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -84,14 +77,15 @@ request.setAttribute("celebrities", listOfCelebrities);
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav ">
-        <li class="active"><a href="customerHomePage.jsp">Home</a></li>
+        <li class="active"><a href="#">Home</a></li>
       </ul>
       <ul class="nav navbar-nav ">
         <li class="active">
-	<form action="searchCelebrity.jsp" method="post">
+<form action="searchCelebrity.jsp" method="post">
     <select name="celebrityEmailID" class="glyphicon glyphicon-user" required>
 	<c:forEach var="celebrity" items="${celebrities}">
- 	<option> <c:out value="${celebrity.name}"/></option>
+ 	<option> <c:out value="${celebrity.emailID}"/></option>
+ 	<input type="hidden" name="celebrityID" value="<c:out value="${celebrity.id}"/>">
     </c:forEach>
     </select>  
     <input type="submit" name="submit" value="Search">
@@ -100,6 +94,7 @@ request.setAttribute("celebrities", listOfCelebrities);
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="Logout.jsp"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
       </ul>
     </div>
   </div>
@@ -115,7 +110,7 @@ request.setAttribute("celebrities", listOfCelebrities);
         
         <div class="panel-heading"><c:out value="${product.product_name}"/></div>
         <div class="panel-heading"><input type="hidden" name="productID" value="<c:out value="${product.product_id}"/>"></div>
-        <div class="panel-body"><img src="<c:out value="${product.image}"/>" class="img-responsive" style="width:50%" alt="Image"></div>
+        <div class="panel-body"><img src="<c:out value="${product.image}"/>" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer"><c:out value="${product.price}"/></div><br/><br/>
         <div class="panel-footer"> <input type="submit" name="submit" value="Buy Product"></div>
       </div>
@@ -124,7 +119,7 @@ request.setAttribute("celebrities", listOfCelebrities);
    </div> 
   
 </form>
-</c:forEach>
+ </c:forEach>
 <footer class="container-fluid text-center">
   <p>Online Store Copyright</p>  
   <form class="form-inline">Get deals:

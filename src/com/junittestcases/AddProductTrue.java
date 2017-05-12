@@ -13,7 +13,6 @@ public class AddProductTrue {
 	public void test() throws SQLException
 	{
 		ProductBean bean = new ProductBean();
-		ProductDAO productDAO = new ProductDAO();
 		try{
 			
 			bean.setProduct_name("Product25");
@@ -24,10 +23,10 @@ public class AddProductTrue {
 			bean.setCelebrity("Roger");
 			bean.setSellordonate("SELL");
 			
-			productDAO.addProduct(bean);
+			ProductDAO.addProduct(bean);
 
-			productDAO.con.rollback();
-			productDAO.con.close();
+			ProductDAO.con.rollback();
+			ProductDAO.con.close();
 			
 		}catch(Exception e)
 		{
