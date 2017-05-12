@@ -12,6 +12,7 @@ public class AddProductFalse7 {
 	@Test
 	public void test() {
 		ProductBean bean = new ProductBean();
+		ProductDAO productDAO = new ProductDAO();
 		try{
 			
 			bean.setProduct_name("Product25");
@@ -21,10 +22,10 @@ public class AddProductFalse7 {
 			bean.setImage("NULL");
 			bean.setCelebrity("Roger");
 			
-			ProductDAO.addProduct(bean);
+			productDAO.addProduct(bean);
 
-			ProductDAO.con.rollback();
-			ProductDAO.con.close();
+			productDAO.con.rollback();
+			productDAO.con.close();
 			
 		}catch(Exception e)
 		{

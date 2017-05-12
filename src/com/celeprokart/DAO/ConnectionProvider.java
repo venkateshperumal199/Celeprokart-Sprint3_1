@@ -1,21 +1,27 @@
 package com.celeprokart.DAO;
 
 import java.sql.*;
-import static com.celeprokart.model.Provider.*;
 
 public class ConnectionProvider {
 
-	private static Connection con=null;  
-	static{  
-	try{  
-	Class.forName(DRIVER);  
-	con=DriverManager.getConnection(CONNECTION_URL,USERNAME,PASSWORD);  
-	}catch(Exception e){}  
-	}  
-	  
-	public static Connection getCon(){  
-	    return con;  
-	}
+	Connection con=null; 
+	public ConnectionProvider()
+	{  
 	
+	}
+	public Connection getCon() {
+		try
+		{  
+			Class.forName("oracle.jdbc.driver.OracleDriver");  
+			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","SSDI","SSDI_29");  
+		}
+	catch(Exception e){
+	}
+		
+		return con;
+	}
+	public void setCon(Connection con) {
+		this.con = con;
+	}
 	
 }

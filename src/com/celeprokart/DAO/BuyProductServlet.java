@@ -28,7 +28,7 @@ public class BuyProductServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		HttpSession session = req.getSession();
 		
-		System.out.println(req.getParameter("id")+"inside servlet");
+		System.out.println(req.getParameter("price")+"inside servlet");
 		
 		
 		

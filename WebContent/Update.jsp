@@ -1,4 +1,3 @@
-<%@page import="com.celeprokart.DAO.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,102 +7,20 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>Buy Product</title>
+
+<title>Payment</title>
 </head>
 <body>
-<%
-ProductDAO productDAO = new ProductDAO();
-boolean status = productDAO.buyProduct(request.getParameter("productID"));	
 
-%>
- <script>
- function validateForm() 
- {	 
-	 var x = document.forms["buyProduct"]["cardHolder"].value;
-	 
-	 var stringValue = (typeof x);   
-	 
-	 if(stringValue == "string")
-	{ 
-		 return !(/[\\/&;]/.test(x));
-	 
- 	}	 
-	 
-	var x = document.forms["buyProduct"]["CardNumber"].value;
-	 
-	 var stringValue = (typeof x);   
-	 
-	 if(stringValue == "string")
-	{ 
-		System.out.println("This is a String");
-		return true;
-	 
- 	}
-	 else
-	{
-		return false;	 
-	}	  
-	 
-	 
-var x = document.forms["buyProduct"]["CVV"].value;
-	 
-	 var stringValue = (typeof x);   
-	 
-	 if(stringValue == "string")
-	{ 
-		System.out.println("This is a String");
-		
-		
-		if(x.length )
-		
-		return true;
-	 
- 	}
-	 else
-	{
-		return false;	 
-	}	  
-	 
-	 
-var x = document.forms["buyProduct"]["ExpiryDate"].value;
-	 
-	 var stringValue = (typeof x);   
-	 
-	 re = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
-
-		    if(document.forms["buyProduct"]["ExpiryDate"].value != '' && !document.forms["buyProduct"]["ExpiryDate"].value.match(re)) {
-		      alert("Invalid date format: " + form.startdate.value);
-		      form.startdate.focus();
-		      return false;
- 	}
-	 else
-	{
-		return false;	 
-	}	  
-}
-  </script>
 <div id="fullscreen_bg" class="fullscreen_bg"></div>
  <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-        <h1 class="text-center login-title">Celeprokart</h1>
-            <h2 class="text-center login-title"><i>Enter Payment Details</i></h2>
-<form action="Payment.jsp" name="buyProduct" method="post">
-<h1 class="form-signin-heading text-muted" align="center">All Fields are mandatory</h1>
-<input type="text" class="form-control" name="cardHolder"  placeholder="Name on Card" required autofocus/><br/><br/>  
-<input type="text" name="CardNumber" placeholder="Card Number" required autofocus/><br/><br/>  
-<input type="text" name="CVV" placeholder="CVV" required autofocus/><br/><br/> 
-<input type="text" name="ExpiryDate" placeholder="expiryDate" required autofocus/><br/><br/> 
-<select name="Category" id="selectboxid_category" ng-model="Category" required>
-					<option value="Celebrity">Credit</option>
-					<option value="Customer">Debit</option>
-				</select><br/><br/>
-						
-<input type="submit" class="btn btn-lg btn-primary btn-block" value="Pay"/>
-</form>
-</div>
-</div>
-</div>
+        <h1 class="text-center login-title">Update successfully done!!!!!!</h1>
+        </div>
+       </div>
+        </div>
+    <a href="adminHomeProcess.jsp">Back Home!!</a>
 </body>
 
 <style type="text/css">
@@ -196,5 +113,6 @@ font-family:courier ;
     }
   
 </style>
+
 
 </html>

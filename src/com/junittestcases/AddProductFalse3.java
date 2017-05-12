@@ -12,8 +12,8 @@ public class AddProductFalse3 {
 	@Test
 	public void test() {
 		
-		
 		ProductBean bean = new ProductBean();
+		ProductDAO productDAO = new ProductDAO();
 		try{
 			
 			bean.setProduct_name("Product25");
@@ -24,10 +24,10 @@ public class AddProductFalse3 {
 			bean.setCelebrity("Roger");
 			bean.setSellordonate("SELL");
 			
-			ProductDAO.addProduct(bean);
+			productDAO.addProduct(bean);
 
-			ProductDAO.con.rollback();
-			ProductDAO.con.close();
+			productDAO.con.rollback();
+			productDAO.con.close();
 			
 		}catch(Exception e)
 		{

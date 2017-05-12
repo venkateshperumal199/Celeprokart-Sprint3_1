@@ -44,10 +44,10 @@ public class SellOrDonateServlet extends HttpServlet{
 		String charity=request.getParameter("charity");
 		LoginBean beanLogin = (LoginBean)session.getAttribute("session");
 		String celebrity=beanLogin.getEmail();
-		
-		System.out.println(celebrity);
+		String celebName = beanLogin.getName();
 		
 		ProductBean bean = new ProductBean();
+		ProductDAO productDao = new ProductDAO();
 	       bean.setProduct_name(name);
 	       bean.setCategory(category);
 	       bean.setSellordonate(sellordonate);
@@ -55,11 +55,17 @@ public class SellOrDonateServlet extends HttpServlet{
 	       bean.setPrice(price);
 	       bean.setCharity(charity);
 	       bean.setCelebrity(celebrity);
-		 System.out.println(bean.toString());
-		   ProductDAO.addProduct(bean);
-		   
-		   request.setAttribute("Result", "Uploaded Successfully");
-		   request.getRequestDispatcher("celebrityhomepage.jsp").forward(request, response);
+	       bean.setCelebName(celebName);
+	       
+	       System.out.println("Product sold by "+bean.getCelebName());
+	       
+	       
+		 int i =  productDao.addProduct(bean);
+		   if(i > 0)
+		   {
+			   request.setAttribute("Result", "Uploaded Successfully");
+			   request.getRequestDispatcher("celebrityhomepage.jsp").forward(request, response);
+		   }
 	} 
 
 }

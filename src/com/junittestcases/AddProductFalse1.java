@@ -13,6 +13,8 @@ public class AddProductFalse1 {
 	public void test() 
 	{
 		ProductBean bean = new ProductBean();
+		ProductDAO productDAO = new ProductDAO();
+		
 		try{
 			
 			bean.setCategory("Sports");
@@ -22,10 +24,10 @@ public class AddProductFalse1 {
 			bean.setCelebrity("Roger");
 			bean.setSellordonate("SELL");
 			
-			assertEquals(1, ProductDAO.addProduct(bean));
+			assertEquals(1, productDAO.addProduct(bean));
 
-			ProductDAO.con.rollback();
-			ProductDAO.con.close();
+			productDAO.con.rollback();
+			productDAO.con.close();
 			
 		}catch(Exception e)
 		{

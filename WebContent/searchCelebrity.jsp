@@ -19,12 +19,10 @@
 </head>
 <body>
  <%  
- 
-ArrayList<ProductBean> listOfProducts=AdminHomePageDAO.searchCelebrities(request.getParameter("celebrityEmailID").toString()); 
+ AdminHomePageDAO adminHomePageDAO = new AdminHomePageDAO();
+ArrayList<ProductBean> listOfProducts=adminHomePageDAO.searchCelebrities(request.getParameter("celebrityEmailID").toString()); 
 request.setAttribute("products", listOfProducts);
 
-ArrayList<SignUpCelebrityBean> listOfCelebrities = AdminHomePageDAO.listCelebrities();
-request.setAttribute("celebrities", listOfCelebrities);
 
   %>
   <div id="fullscreen_bg" class="fullscreen_bg"></div>
@@ -78,25 +76,38 @@ request.setAttribute("celebrities", listOfCelebrities);
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav ">
-        <li class="active"><a href="#">Home</a></li>
+        <li class="active">
+    <%
+ 	LoginBean beanLogin = (LoginBean)session.getAttribute("session");
+    LoginDao loginDao = new LoginDao();
+    boolean status_celeb = loginDao.validateCeleb(beanLogin); 
+     if(status_celeb)
+     {
+   %>
+    	 
+    <a href="celebrityhomepage.jsp">Home</a>
+    
+	<%
+     }
+     else
+     {
+    	if(loginDao.validateCust(beanLogin))
+    	{
+    	 
+    	 %>
+    	  <a href="customerHomePage.jsp">Home</a>	 
+    	 <%  	 
+    	}
+     }
+     %>   
+      </li>
       </ul>
       <ul class="nav navbar-nav ">
         <li class="active">
-<form action="searchCelebrity.jsp" method="post">
-    <select name="product" class="glyphicon glyphicon-user" required>
-	<c:forEach var="celebrity" items="${celebrities}">
- 	<option> <c:out value="${celebrity.emailID}"/></option>
- 	<input type="hidden" name="celebrityID" value="<c:out value="${celebrity.id}"/>">
-    </c:forEach>
-    </select>
-    
-    <input type="submit" name="submit" value="Search">
-</form>    
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="Logout.jsp"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
       </ul>
     </div>
   </div>

@@ -28,11 +28,11 @@ public class SignUpTestFalse3 {
 			bean.setPhoneNo(phoneNo);
 			bean.setPassword("Venkatesh29");
 			bean.setFlag("N");
-			assertTrue(SignUpCelebrityDao.addCelebrity(bean));
+			assertTrue(signUpDao.addCelebrity(bean));
 		}finally
 		{
-			SignUpCelebrityDao.con.rollback();
-			SignUpCelebrityDao.con.close();
+			signUpDao.con.rollback();
+			signUpDao.con.close();
 		}
 
 	}

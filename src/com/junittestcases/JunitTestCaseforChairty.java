@@ -22,10 +22,10 @@ public class JunitTestCaseforChairty {
 		bean.setPhoneNo(9803392688L);
 		bean.setZipcode(28262);
 		
-		assertTrue(AddCharityDAO.addCharity(bean));
+		assertTrue(dao.addCharity(bean));
 		
-		AddCharityDAO.con.rollback();
-		AddCharityDAO.con.close();
+		dao.con.rollback();
+		dao.con.close();
 
 	}
 

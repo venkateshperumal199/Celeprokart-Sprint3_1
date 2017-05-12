@@ -12,11 +12,20 @@
 </head>
 <body>
 
-<%  
-boolean status=AddCharityDAO.addCharity(obj);  
+<% 
+
+AddCharityDAO addCharityDAO = new AddCharityDAO();
+
+boolean status=addCharityDAO.addCharity(obj);  
+
 if(status){  
 out.println("Charity is successfully added to Celeprokart");  
-session.setAttribute("session","TRUE");  
+%>
+
+<jsp:include page="adminHomeProcess.jsp"></jsp:include>
+
+<%
+
 }  
 else  
 {  

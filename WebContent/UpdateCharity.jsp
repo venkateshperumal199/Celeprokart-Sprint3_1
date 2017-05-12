@@ -1,3 +1,5 @@
+<%@page import="com.celeprokart.bean.AddCharityBean"%>
+<%@page import="com.celeprokart.DAO.AddCharityDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -11,26 +13,12 @@
 </head>
 <body>
 <%  
-String name_msg=(String)request.getParameter("name");  
-if(name_msg!=null){  
-out.print(name_msg);  
-} 
-String emailID_msg=(String)request.getParameter("emailID");  
-if(emailID_msg!=null){  
-out.print(emailID_msg);  
-}  
-String address_msg=(String)request.getParameter("address");  
-if(address_msg!=null){  
-out.print(address_msg);  
-} 
-String zipcode_msg=(String)request.getParameter("zipcode");  
-if(zipcode_msg!=null){  
-out.print(zipcode_msg);  
-} 
-String phoneNo_msg=(String)request.getParameter("phoneNo");  
-if(phoneNo_msg!=null){  
-out.print(phoneNo_msg);  
-} 
+AddCharityDAO charityDAO = new AddCharityDAO();
+
+AddCharityBean charityBean = new AddCharityBean();
+
+charityBean = charityDAO.searchCharity(request.getParameter("charity_id"));	
+
 %>
 <script>
  function validateForm() 
@@ -70,14 +58,15 @@ out.print(phoneNo_msg);
        <img src="http://www.clker.com/cliparts/j/a/Z/z/q/w/purple-crown-hi.png"style="width:300px;height:100px;">
         <h1 class="text-center login-title">Celeprokart</h1>
             <h2 class="text-center login-title"><i>DreamIt,BuyIt!!</i></h2>
-<form name="charityForm" action="charityProcess.jsp" method="post" onsubmit = "return validateForm()">
+<form name="charityForm" action="updateCharityProcess.jsp" method="post" onsubmit = "return validateForm()">
 <h1 class="form-signin-heading text-muted" align="center">Add Charity to Celeprokart</h1>
 <input type="text" class="form-control" name="name"  placeholder="name" required autofocus/><br/><br/>  
-<input type="text" name="emailID" placeholder="EMail ID" required autofocus/><br/><br/>  
-<textarea name="address" placeholder="Address" required autofocus></textarea><br/><br/>
-<input type="text" name="zipcode" placeholder="ZipCode" required autofocus/><br/><br/>
-<input type="text" name="phoneNo" placeholder="Phone Number" required autofocus/><br/><br/>
-<input type="submit" class="btn btn-lg btn-primary btn-block" value="Add Charity"/>
+<input type="text" name="emailID" placeholder="emailID" required autofocus/><br/><br/>  
+<textarea name="address"  placeholder="address" required autofocus></textarea><br/><br/>
+<input type="text" name="zipcode" placeholder="zipcode" required autofocus/><br/><br/>
+<input type="text" name="phoneNo" placeholder="phoneno" required autofocus/><br/><br/>
+<input type="hidden" name="charityid" value='<%=request.getParameter("charity_id")%>'/><br/><br/>
+<input type="submit" class="btn btn-lg btn-primary btn-block" value="Update Charity"/>
 </form>
 </div>
 </div>

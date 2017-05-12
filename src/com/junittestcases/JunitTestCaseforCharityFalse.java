@@ -20,9 +20,9 @@ public class JunitTestCaseforCharityFalse {
 		bean.setPhoneNo(9803392688L);
 		bean.setZipcode(28262);
 		
-		assertTrue(AddCharityDAO.addCharity(bean));
-		AddCharityDAO.con.rollback();
-		AddCharityDAO.con.close();
+		assertTrue(dao.addCharity(bean));
+		dao.con.rollback();
+		dao.con.close();
 
 	}
 

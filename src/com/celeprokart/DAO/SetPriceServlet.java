@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.celeprokart.bean.*;
 
-@WebServlet("/SetPriceServlet")
+@WebServlet("/setPriceServlet")
 public class SetPriceServlet extends HttpServlet{
 
 	/**
@@ -29,20 +29,24 @@ public class SetPriceServlet extends HttpServlet{
 	{
 		String price = req.getParameter("price");
 		String product_name = req.getParameter("product_name");
+		String id = req.getParameter("id");
+		
+		System.out.println(id+"inside servlet");
 		
 		ProductBean bean = new ProductBean();
-		
+		ProductDAO productDao = new ProductDAO();
 		bean.setPrice(price);
 		bean.setProduct_name(product_name);
 		
-		ProductDAO.updateProduct(bean);
+		productDao.updateProduct(bean);
 		
-		int status=ProductDAO.updateProduct(bean);
+		int status=productDao.updateProduct(bean);
 		
 		System.out.println(status);
 		   if(status>0){
 			
 			   req.setAttribute("Items", "Product added to Celeprokart");
+			   req.getRequestDispatcher("adminHomeProcess.jsp").forward(req, resp);
 		   }
 		
 	}

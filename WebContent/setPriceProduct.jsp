@@ -1,3 +1,5 @@
+<%@page import="com.celeprokart.DAO.ProductDAO"%>
+<%@page import="com.celeprokart.bean.ProductBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,13 +13,22 @@
 <title>Set Price</title>
 </head>
 <body>
-<form action="SetPriceServlet" method="POST">
+<%
+
+ProductDAO productDAO = new ProductDAO();
+ProductBean bean = productDAO.searchProduct(request.getParameter("product_id"));
+
+System.out.println(bean.getProduct_name());
+
+%>
+<form action="setPriceServlet" method="POST">
 <div id="fullscreen_bg" class="fullscreen_bg"></div>
  <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-        	<input type="text" class="form-control" name="price" placeholder="Set Price" required autofocus><br></br>
-        	<input type="text" class="form-control" name="product_name" placeholder="Set Product" required autofocus><br></br>
+        	SetPrice<input type="text" class="form-control" name="price" value="${bean.price}"><br></br>
+        	Product Name<input type="text" class="form-control" name="product_name" value="${bean.product_name}"><br></br>
+        		<input type="hidden" name="id" value="${bean.product_id}">
         	<input class="btn btn-lg btn-primary btn-block" type="submit" value="Set Price"/> <br/><br/>
         </div>
         </div>

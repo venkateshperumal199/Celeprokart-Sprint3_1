@@ -24,10 +24,13 @@
 </head>
 <body>
 <%  
-ArrayList<AddCharityBean> listOfCharities=AdminHomePageDAO.listCharity();  
+
+AdminHomePageDAO adminHomePageDAO = new AdminHomePageDAO();
+
+ArrayList<AddCharityBean> listOfCharities=adminHomePageDAO.listCharity();  
 request.setAttribute("charities", listOfCharities);
 
-ArrayList<SignUpCelebrityBean> listOfCelebrities=AdminHomePageDAO.listCelebrities();  
+ArrayList<SignUpCelebrityBean> listOfCelebrities=adminHomePageDAO.listAdminCelebrities();  
 request.setAttribute("celebrities", listOfCelebrities);
 
 String[] selectedStudentIds = request.getParameterValues("flag");
@@ -36,7 +39,7 @@ if(selectedStudentIds!=null){
 	request.setAttribute("listOFCelebrities", selectedStudentIds); 
 }
 
-ArrayList<ProductBean> listOfProducts=AdminHomePageDAO.listProducts(); 
+ArrayList<ProductBean> listOfProducts=adminHomePageDAO.listProducts(); 
 request.setAttribute("products", listOfProducts);
 
 %>
@@ -47,54 +50,48 @@ request.setAttribute("products", listOfProducts);
        <img src="http://www.clker.com/cliparts/j/a/Z/z/q/w/purple-crown-hi.png"style="width:300px;height:100px;">
         <h1 class="text-center login-title">Celeprokart</h1>
             <h4 class="text-center login-title"><i>DreamIt,BuyIt!!</i></h4>
+<a href="Logout.jsp">Logout</a>
+<form action="UpdateCharity.jsp" method="post">
 
-<form action="AddCharity.jsp" method="post">
-
-<font color="gold">List of Charities</font><br/><br/>
+<font color="black">List of Charities</font><br/><br/>
 <div style="width:100px;height:150px;overflow:auto;padding:5px;">
 
 <c:forEach var="charity" items="${charities}">
 <tr class="form-textcolor">
 <td class="form-textcolor">
- <font color="gold"><c:out value="${charity.name}"/></font> 
+<input type="hidden" name="charity_id" value="<c:out value="${charity.id}"/>">
+ <font color="black"><input type="submit" value="<c:out value="${charity.name}"/>"></font> 
   </td>
   </tr>
     </c:forEach>
 </div><br/>
+</form>
+<form action="AddCharity.jsp" method="post">
 <input type="submit" value="Add Charity"/> <br/><br/>
 </form>
 
-<form>
-<font color="gold">List of Products</font><br/><br/>
-<div style="width:100px;height:150px;overflow:auto;padding:5px;" >
+<form name="setPriceForm" action="setPriceProduct.jsp">
+<font color="black">List of Products</font><br/><br/>
+<div style="width:150px;height:150px;overflow:auto;padding:5px;" >
 <c:forEach var="product" items="${products}">
 <tr class="form-textcolor">
 <td class="form-textcolor">
- <font color="gold"><a href="setPriceProduct.jsp"><c:out value="${product.product_name}"/></a></font> 
+ <font color="black">
+ <input type="hidden" name="product_id" value="<c:out value="${product.product_id}"/>">
+ <input type="submit" name="submit" value="<c:out value="${product.product_name}"/>"></font> 
   </td>
+  <td>
   </tr>
     </c:forEach>
 </div><br/>
 </form>
 
-<form name="manageCelebrities" method="post">
-<font color="gold">Manage Celebrities</font><br></br>
-<div style="width:200px;height:150px;overflow:auto;padding:5px;">
-<c:forEach var="celebrity" items="${celebrities}">
-<tr>
-	<td class="form-textcolor"> 
-	<font color="gold"><c:out value="${celebrity.emailID}" /></font>
-      --  <input type="checkbox" name="flag" value="${celebrity.emailID}"><br></br>
-      </td>
-  </tr>
-   
-    </c:forEach>
-    </div>
-<input type="submit" value="Save Changes" /> <br/><br/>
-</form>
 </div>
 </div>
 </div>
+
+
+
 </body>
 <style type="text/css">
 
@@ -104,14 +101,14 @@ request.setAttribute("products", listOfProducts);
     background-color: #eee;
   }
   h1 {
-    color: gold;
+    color: black;
 }
 h2{
 color: green;
 font-family:courier ;
 }
   .fullscreen_bg {
-  background-image: url('http://72gpf1za5iq428ekh3r7qjc1.wpengine.netdna-cdn.com/wp-content/uploads/2015/04/ecommerce.jpg');
+  background-image: url('http://cityoftruesdalemo.org/wp-content/uploads/2014/04/admin-man.jpg');
     position: fixed;
     top: 0;
     right: 0;

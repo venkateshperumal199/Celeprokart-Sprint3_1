@@ -15,35 +15,65 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import com.celeprokart.bean.*;
+
 public class ForgotPasswordDAO 
 {
-	public static boolean forgotPassword(LoginBean bean)
+	public Connection con;
+	public ConnectionProvider connectionProvider = new ConnectionProvider();
+	PreparedStatement ps;
+	ResultSet rs;
+	String to=null;
+	public boolean forgotPassword(String name)
 	{
 		boolean status=false;  
+		String password = null;
 		try{  
-		Connection con=ConnectionProvider.getCon(); 
+		con=connectionProvider.getCon(); 
 		System.out.println("Connected");
 		              
-		PreparedStatement ps=con.prepareStatement(  
-		    "select * from Celebrity where username=?"); 		  
-		ps.setString(1,bean.getEmail()); 
-		System.out.println(bean.getEmail());
+		ps=con.prepareStatement(  
+		    "select * from Celebrity where email_id=?"); 		  
+		ps.setString(1, name); 
+		System.out.println(name);
 	               
-		ResultSet rs=ps.executeQuery(); 
-		System.out.println("Connected");
-		System.out.println(rs.next());
+		rs=ps.executeQuery(); 		
 		while (rs.next()) 
 		{
-			System.out.println("Connected");
-			String password = rs.getString("password");
-			System.out.println("Connected"+password);
-			bean.setPass(password);
+			password = rs.getString("password");
 		}
-		String to = bean.getEmail();
-		sendEmail(to, "Password", "Your password is"+bean.getPass());
-		System.out.println(bean.getPass());
-		return true;
+		to = name;
+		if(password != null)
+		{
+			sendEmail(to, "Password", "Your password is"+password);
+			return true;
+			
+		}
+		
+		else
+		{
+			ps=con.prepareStatement(  
+				    "select * from Customer where email_id=?"); 		  
+				ps.setString(1, name); 
+				System.out.println(name);
+			               
+				rs=ps.executeQuery(); 		
+				while (rs.next()) 
+				{
+					password = rs.getString("password");
+				}
+				to = name;
+				
+				if(password != null)
+				{
+					sendEmail(to, "Password", "Your password is"+password);
+					return true;
+				}
+				else
+				{
+					System.out.println("null");
+					return status;
+				}
+		}
 		
 		}catch(Exception e){}  
 		  
@@ -52,14 +82,11 @@ public class ForgotPasswordDAO
 	}
 	public static void sendEmail(String toAddress,String subject, String message) throws AddressException,
 	MessagingException {
-		
-		
+	
 String host  = "smtp.gmail.com";
 String port  = "587";
 String userName = "anushareddy.amula@gmail.com";
 String password = "Hanuman@29";
-
-
 
 // sets SMTP server properties
 Properties properties = new Properties();
